@@ -5,6 +5,7 @@ import Card from "@/components/ui/Card";
 import TagChip from "@/components/ui/TagChip";
 import MetaBadge from "@/components/ui/MetaBadge";
 import ProjectImage from "@/components/ui/ProjectImage";
+import ProjectLogoThumbnail from "@/components/ui/ProjectLogoThumbnail";
 import ConfidentialImage from "@/components/ui/ConfidentialImage";
 import { projects } from "@/data/projects";
 
@@ -25,7 +26,15 @@ function ProjectGrid({ items }: { items: typeof projects }) {
         >
           <Card className="flex h-full flex-col">
             {project.image ? (
-              <ProjectImage src={project.image} alt={project.title} />
+              <ProjectImage
+                src={project.image}
+                alt={project.title}
+                thumbnail={
+                  project.logo && (
+                    <ProjectLogoThumbnail src={project.logo} alt={`${project.title} logo`} />
+                  )
+                }
+              />
             ) : (
               project.confidential && <ConfidentialImage />
             )}
