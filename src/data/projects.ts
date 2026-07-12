@@ -26,7 +26,7 @@ export const projects: Project[] = [
     ],
     technologies: ["React", "TypeScript", "Material-UI", "GraphQL", "Apollo Client"],
     category: "work",
-    image: "",
+    confidential: true,
     featured: true,
   },
   {

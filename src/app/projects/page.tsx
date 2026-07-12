@@ -5,6 +5,7 @@ import Card from "@/components/ui/Card";
 import TagChip from "@/components/ui/TagChip";
 import MetaBadge from "@/components/ui/MetaBadge";
 import ProjectImage from "@/components/ui/ProjectImage";
+import ConfidentialImage from "@/components/ui/ConfidentialImage";
 import { projects } from "@/data/projects";
 
 export const metadata: Metadata = {
@@ -23,7 +24,11 @@ function ProjectGrid({ items }: { items: typeof projects }) {
           style={{ animationDelay: `${index * 100}ms` }}
         >
           <Card className="flex h-full flex-col">
-            {project.image && <ProjectImage src={project.image} alt={project.title} />}
+            {project.image ? (
+              <ProjectImage src={project.image} alt={project.title} />
+            ) : (
+              project.confidential && <ConfidentialImage />
+            )}
 
             <h3 className="line-clamp-2 font-heading text-lg text-foreground">
               {project.title}

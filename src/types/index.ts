@@ -35,6 +35,9 @@ export interface Project {
   technologies?: string[];
   category: "university" | "work";
   image?: string | StaticImageData;
+  // True when screenshots can't be shown (e.g. client/employer NDA) — renders
+  // a "Confidential" placeholder in place of the image instead of nothing.
+  confidential?: boolean;
   featured?: boolean;
   level?: "diploma" | "degree";
   scope?: "assignment" | "fyp";

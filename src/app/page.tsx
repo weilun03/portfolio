@@ -5,6 +5,7 @@ import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
 import TagChip from "@/components/ui/TagChip";
 import ProjectImage from "@/components/ui/ProjectImage";
+import ConfidentialImage from "@/components/ui/ConfidentialImage";
 import { profile } from "@/data/profile";
 import { coreSkills } from "@/data/skills";
 import { projects } from "@/data/projects";
@@ -58,6 +59,7 @@ export default function HomePage() {
                 src={profilePhoto}
                 alt={`Portrait of ${profile.name}`}
                 fill
+                preload
                 sizes="(min-width: 1024px) 20rem, (min-width: 640px) 14rem, 12rem"
                 className="object-cover object-bottom"
               />
@@ -86,11 +88,15 @@ export default function HomePage() {
             {featuredProjects.map((project, index) => (
               <div
                 key={project.slug}
-                className="reveal"
+                className="reveal h-full"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
-                <Card>
-                  {project.image && <ProjectImage src={project.image} alt={project.title} />}
+                <Card className="h-full">
+                  {project.image ? (
+                    <ProjectImage src={project.image} alt={project.title} />
+                  ) : (
+                    project.confidential && <ConfidentialImage />
+                  )}
                   <Link href="/projects" className="group block">
                     <h3 className="font-heading text-lg text-foreground">{project.title}</h3>
                     <p className="mt-2 text-sm text-muted">{project.description}</p>
