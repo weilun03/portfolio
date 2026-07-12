@@ -45,10 +45,10 @@ export default function AboutPage() {
           {skills.map((category, index) => (
             <div
               key={category.title}
-              className="reveal"
+              className="reveal h-full"
               style={{ animationDelay: `${index * 80}ms` }}
             >
-              <Card>
+              <Card className="h-full">
                 <h3 className="mb-3 font-heading text-lg text-foreground">{category.title}</h3>
                 <div className="flex flex-wrap gap-2">
                   {category.items.map((item) => (
