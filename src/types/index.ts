@@ -34,7 +34,12 @@ export interface Project {
   highlights: string[];
   technologies?: string[];
   category: "university" | "work";
-  image?: string | StaticImageData;
+  // A single screenshot, or several — pass an array to get a prev/next
+  // gallery in the lightbox. The card thumbnail always shows just the first.
+  image?: string | StaticImageData | (string | StaticImageData)[];
+  // Shown as the card thumbnail instead of `image` when set — clicking it
+  // still opens the real screenshot(s) in the lightbox.
+  logo?: string | StaticImageData;
   // True when screenshots can't be shown (e.g. client/employer NDA) — renders
   // a "Confidential" placeholder in place of the image instead of nothing.
   confidential?: boolean;

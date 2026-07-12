@@ -5,6 +5,7 @@ import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
 import TagChip from "@/components/ui/TagChip";
 import ProjectImage from "@/components/ui/ProjectImage";
+import ProjectLogoThumbnail from "@/components/ui/ProjectLogoThumbnail";
 import ConfidentialImage from "@/components/ui/ConfidentialImage";
 import { profile } from "@/data/profile";
 import { coreSkills } from "@/data/skills";
@@ -93,7 +94,15 @@ export default function HomePage() {
               >
                 <Card className="h-full">
                   {project.image ? (
-                    <ProjectImage src={project.image} alt={project.title} />
+                    <ProjectImage
+                      src={project.image}
+                      alt={project.title}
+                      thumbnail={
+                        project.logo && (
+                          <ProjectLogoThumbnail src={project.logo} alt={`${project.title} logo`} />
+                        )
+                      }
+                    />
                   ) : (
                     project.confidential && <ConfidentialImage />
                   )}
