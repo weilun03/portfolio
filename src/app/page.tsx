@@ -67,10 +67,10 @@ export default function HomePage() {
       </section>
 
       <section className="reveal border-t border-border/60 py-16" style={{ animationDelay: "0ms" }}>
-        <p className="mb-6 font-mono text-xs uppercase tracking-widest text-muted">
+        <p className="mb-8 font-mono text-sm uppercase tracking-widest text-muted">
           Technical Skills
         </p>
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-3">
           {coreSkills.map((item) => (
             <TagChip key={item} label={item} />
           ))}
@@ -79,7 +79,7 @@ export default function HomePage() {
 
       {featuredProjects.length > 0 && (
         <section className="border-t border-border/60 py-16">
-          <p className="mb-6 font-mono text-xs uppercase tracking-widest text-muted">
+          <p className="mb-8 font-mono text-sm uppercase tracking-widest text-muted">
             Featured Projects
           </p>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
