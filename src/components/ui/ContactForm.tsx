@@ -8,36 +8,60 @@ import { contactLinks } from "@/data/contact";
 const inputClasses =
   "w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted transition-colors focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/40";
 
+type Status = "idle" | "submitting" | "success" | "error";
+
 export default function ContactForm() {
-  const [submitted, setSubmitted] = useState(false);
+  const [status, setStatus] = useState<Status>("idle");
   const emailLink = contactLinks.find((link) => link.label === "Email");
 
-  function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
+  async function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
-    setSubmitted(true);
+    setStatus("submitting");
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    formData.append("access_key", process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY ?? "");
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: formData,
+      });
+      const result = await response.json();
+
+      if (result.success) {
+        setStatus("success");
+        form.reset();
+      } else {
+        setStatus("error");
+      }
+    } catch {
+      setStatus("error");
+    }
   }
 
-  if (submitted) {
-    return (
-      <p className="text-sm text-muted">
-        Thanks for writing that out! This form isn&apos;t wired up to actually send messages
-        yet — for now, please reach me directly
-        {emailLink && (
-          <>
-            {" "}
-            at{" "}
-            <a href={emailLink.href} className="text-accent hover:underline">
-              {emailLink.value}
-            </a>
-          </>
-        )}
-        .
-      </p>
-    );
+  if (status === "success") {
+    return <p className="text-sm text-muted">Thanks for reaching out! I&apos;ll get back to you soon.</p>;
   }
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
+      {status === "error" && (
+        <p className="text-sm text-red-500">
+          Something went wrong sending that. Please try again, or reach me directly
+          {emailLink && (
+            <>
+              {" "}
+              at{" "}
+              <a href={emailLink.href} className="text-accent hover:underline">
+                {emailLink.value}
+              </a>
+            </>
+          )}
+          .
+        </p>
+      )}
       <div>
         <label htmlFor="name" className="mb-1 block text-sm text-muted">
           Name
@@ -73,8 +97,8 @@ export default function ContactForm() {
         />
       </div>
 
-      <Button type="submit" className="w-full sm:w-auto">
-        Send Message
+      <Button type="submit" disabled={status === "submitting"} className="w-full sm:w-auto">
+        {status === "submitting" ? "Sending..." : "Send Message"}
       </Button>
     </form>
   );
