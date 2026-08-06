@@ -58,7 +58,12 @@ export default function Navbar() {
           </ul>
 
           <div className="col-start-3 hidden justify-self-end md:block">
-            <Button href="/resume.pdf" download variant="outline" className="px-4 py-1.5">
+            <Button
+              href="/resume.pdf"
+              download="Resume - TAN WEI LUN.pdf"
+              variant="outline"
+              className="px-4 py-1.5"
+            >
               Resume
             </Button>
           </div>
@@ -89,7 +94,7 @@ export default function Navbar() {
             <li>
               <Link
                 href="/resume.pdf"
-                download
+                download="Resume - TAN WEI LUN.pdf"
                 onClick={() => setIsOpen(false)}
                 className="text-sm text-accent transition-colors hover:text-accent-hover"
               >
